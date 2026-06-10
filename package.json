@@ -1,0 +1,22 @@
+{
+  "name": "byok-vault",
+  "version": "0.1.0",
+  "description": "How SpeakOS keeps your BYOK provider API key safe — the actual vault module.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.108.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/pg": "^8.15.0",
+    "dotenv": "^17.0.0",
+    "pg": "^8.21.0",
+    "typescript": "^5.7.0",
+    "vitest": "^4.1.8"
+  }
+}

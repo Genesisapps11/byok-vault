@@ -1,6 +1,6 @@
 {
   "name": "@skyhighmedia/byok-vault",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "BYOK provider-key vault — encrypted at rest in Supabase Vault, decrypted only server-side at point of use. The actual module SkyHighMedia apps run.",
   "license": "MIT",
   "type": "module",
@@ -19,6 +19,7 @@
   },
   "files": [
     "dist",
+    "docs",
     "sql",
     "README.md",
     "LICENSE"

@@ -28,10 +28,12 @@ claims below.
 ## The honest part (read this)
 
 Open-sourcing this code proves our **design and intent**. It does **not** cryptographically
-prove our servers run exactly this code — no amount of publishing can prove that. So the real,
-structural guarantee isn't our promise: it's **BYOK**. You own the account, you see your own
-billing, and you can kill the key in one click. The code below shows we built the careful
-version; BYOK means you never have to take our word for it.
+prove our servers run exactly this code — no amount of publishing can prove that. Concretely,
+the real boundary is **custody of the server-side `service_role` key plus the SQL grants**:
+whoever holds that key can decrypt a stored key server-side, so the guarantee can't rest on any
+single line of app code. That's why the real, structural guarantee isn't our promise: it's
+**BYOK**. You own the account, you see your own billing, and you can kill the key in one click.
+The code below shows we built the careful version; BYOK means you never have to take our word for it.
 
 ---
 
@@ -48,8 +50,9 @@ version; BYOK means you never have to take our word for it.
    **last 4 characters**, never the key, never another tenant's.
 4. **No-log redaction** (`src/redact.ts`) scrubs key-shaped tokens from values the app
    passes through it; the vault's own errors carry codes, never key material.
-5. **One chokepoint.** All key handling lives in `src/keys.ts`. Nothing else in the app
-   touches plaintext.
+5. **One chokepoint.** All *app-side* key handling lives in `src/keys.ts`. The boundary that
+   actually *enforces* this is the `service_role`-only SQL functions (#2) plus custody of the
+   service-role key — the TS file is the convention; the SQL grants are the enforcement.
 
 ## Install
 

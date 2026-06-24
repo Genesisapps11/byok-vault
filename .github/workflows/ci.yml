@@ -1,0 +1,48 @@
+name: ci
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm typecheck
+      - run: pnpm build
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - uses: supabase/setup-cli@v1
+        with:
+          version: latest
+      - run: pnpm install --frozen-lockfile
+      - name: Start local Supabase (includes Vault)
+        run: |
+          [ -f supabase/config.toml ] || supabase init
+          supabase start
+      - name: Apply the vault schema
+        run: |
+          eval "$(supabase status -o env)"
+          DB="${DB_URL:-$POSTGRES_URL}"
+          psql "$DB" -v ON_ERROR_STOP=1 -f sql/context.sql -f sql/vault.sql
+      - name: Run the proof tests
+        run: |
+          eval "$(supabase status -o env)"
+          {
+            echo "SUPABASE_URL=$API_URL"
+            echo "SUPABASE_SERVICE_ROLE_KEY=$SERVICE_ROLE_KEY"
+            echo "DATABASE_URL=${DB_URL:-$POSTGRES_URL}"
+          } >> "$GITHUB_ENV"
+      - run: pnpm test

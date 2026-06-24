@@ -1,17 +1,57 @@
 {
-  "name": "byok-vault",
+  "name": "@skyhighmedia/byok-vault",
   "version": "0.1.0",
-  "description": "How SpeakOS keeps your BYOK provider API key safe — the actual vault module.",
+  "description": "BYOK provider-key vault — encrypted at rest in Supabase Vault, decrypted only server-side at point of use. The actual module SkyHighMedia apps run.",
   "license": "MIT",
   "type": "module",
-  "scripts": {
-    "test": "vitest run",
-    "typecheck": "tsc --noEmit"
+  "main": "./dist/keys.js",
+  "types": "./dist/keys.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/keys.d.ts",
+      "import": "./dist/keys.js"
+    },
+    "./redact": {
+      "types": "./dist/redact.d.ts",
+      "import": "./dist/redact.js"
+    }
   },
-  "dependencies": {
-    "@supabase/supabase-js": "^2.108.0"
+  "files": [
+    "dist",
+    "sql",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "prepublishOnly": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Genesisapps11/byok-vault.git"
+  },
+  "keywords": [
+    "byok",
+    "supabase",
+    "vault",
+    "secrets",
+    "encryption",
+    "api-keys"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "@supabase/supabase-js": ">=2"
   },
   "devDependencies": {
+    "@supabase/supabase-js": "^2.108.0",
     "@types/node": "^22.10.0",
     "@types/pg": "^8.15.0",
     "dotenv": "^17.0.0",

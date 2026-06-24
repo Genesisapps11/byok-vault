@@ -1,6 +1,8 @@
--- Minimal tenancy context that vault.sql builds on. In SpeakOS this is the full
--- multi-tenant schema; trimmed here so vault.sql applies and the tests run
--- against a fresh Supabase project.
+-- TEST FIXTURE ONLY — host apps NEVER apply this file. It is the minimal tenancy
+-- context that the DEFAULT sql/vault.sql builds on (the `orgs` table + the
+-- `current_user_org_ids()` predicate), so vault.sql applies and test/keys.test.ts
+-- runs standalone against a fresh Supabase project. Each real app brings its own
+-- tenancy (see the HOST SCHEMA CONTRACT header in sql/vault.sql).
 
 create type org_type as enum ('direct', 'agency', 'client');
 create type org_role as enum ('owner', 'admin', 'member', 'viewer', 'guardian');

@@ -4,6 +4,7 @@
   "description": "BYOK provider-key vault — encrypted at rest in Supabase Vault, decrypted only server-side at point of use. The actual module SkyHighMedia apps run.",
   "license": "MIT",
   "type": "module",
+  "packageManager": "pnpm@11.1.1",
   "main": "./dist/keys.js",
   "types": "./dist/keys.d.ts",
   "exports": {

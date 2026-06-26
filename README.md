@@ -2,14 +2,14 @@
 
 [![CI](https://github.com/Genesisapps11/byok-vault/actions/workflows/ci.yml/badge.svg)](https://github.com/Genesisapps11/byok-vault/actions/workflows/ci.yml)
 
-**The BYOK vault module SkyHighMedia apps use to keep your provider API key safe — the actual code that does it.**
+**The BYOK vault module our apps use to keep your provider API key safe — the actual code that does it.**
 
-These apps are BYOK: you bring your own provider API key (e.g. your voice-AI key for
-[SpeakOS](https://speakos.ai)). That key is powerful, so here is *exactly* how it is stored
+These apps are BYOK: you bring your own provider API key (for example, your voice-AI or
+LLM provider key). That key is powerful, so here is *exactly* how it is stored
 and used. This is the real vault module from the products — open so anyone can verify the
 claims below.
 
-**Used by:** [SpeakOS](https://speakos.ai) _(and other SkyHighMedia apps)_.
+**Used by:** our production apps.
 
 ---
 
@@ -85,7 +85,7 @@ with `import 'server-only'`.
 
 ## Adopting it in your own schema
 
-`sql/vault.sql` ships with the SpeakOS tenancy as the default. It is parameterised by two
+`sql/vault.sql` ships with a reference tenancy as the default. It is parameterised by two
 **HOST SCHEMA CONTRACT** points (documented at the top of the file): the tenant table the key
 rows reference, and the metadata-read RLS predicate. Substitute your own (e.g. `tenants` + a
 JWT-claim predicate) in your app's migration. **Keep the function names and param names
@@ -105,4 +105,4 @@ The tests are the proof — and they run in CI on every push (see the badge abov
 
 ## License
 
-MIT — see [LICENSE](./LICENSE). Part of the SkyHighMedia ecosystem · [speakos.ai](https://speakos.ai)
+MIT — see [LICENSE](./LICENSE).

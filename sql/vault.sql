@@ -4,7 +4,7 @@
 -- definer functions below, which are granted to service_role alone.
 --
 -- ┌─ HOST SCHEMA CONTRACT ──────────────────────────────────────────────────┐
--- │ This template is shown with the default (SpeakOS) tenancy. Each host app │
+-- │ This template is shown with a reference tenancy. Each host app           │
 -- │ applies its own migration substituting TWO contract points:             │
 -- │                                                                          │
 -- │  1. TENANT TABLE the key rows reference.                                 │
